@@ -1,0 +1,10 @@
+# Development environment override
+version: "3.4"
+
+services:
+  php:
+    build:
+      context: .
+      target: php_dev
+    volumes:
+      - ./:/app

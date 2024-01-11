@@ -1,0 +1,17 @@
+{
+    "name": "k2gl/app-logic",
+    "type": "project",
+    "license": "MIT",
+    "description": "Dockerized Spiral framework",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.3.1",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "k2gl/phpunit-fluent-assertions": "^1.11"
+    }
+}

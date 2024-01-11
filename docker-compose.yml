@@ -1,0 +1,13 @@
+version: "3.4"
+
+services:
+  php:
+    image: ${IMAGES_PREFIX:-}php
+    restart: unless-stopped
+    ports:
+      - target: 8080
+        published: ${PHP_PORT:-8080}
+        protocol: tcp
+    environment:
+      - DEBUG=false
+      - APP_ENV=production
