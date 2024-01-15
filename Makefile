@@ -46,6 +46,9 @@ log: ## Show and follow tail of live logs
 down: ## Stop the docker hub
 	$(DOCKER_COMP) down --remove-orphans
 
+chown: ## Change the owner of file system files and directories
+	$(DOCKER_COMP) run --rm php chown -R 1000:1000 .
+
 ##—————— ꩜ PHP container ——————
 php: ## Connect to the PHP FPM container
 	$(PHP_CONT) fish

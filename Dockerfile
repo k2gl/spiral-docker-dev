@@ -1,14 +1,14 @@
 #syntax=docker/dockerfile:1.4
 # Adapted from https://github.com/k2gl/spiral-docker-dev
-FROM php:8.3.2RC1-cli-alpine AS php_upstream
-FROM composer/composer:2-bin AS composer_upstream
 FROM spiralscout/roadrunner:latest AS spiralscout_roadrunner
+FROM composer/composer:2-bin AS composer_upstream
+FROM php:8.3.2RC1-cli-alpine AS php_upstream
 
 # PHP upstream image
 FROM php_upstream AS php_base
 
-WORKDIR /app
-ENV PATH="${PATH}:/app/bin"
+WORKDIR /srv
+ENV PATH="${PATH}:/srv/bin"
 
 RUN  --mount=type=bind,from=mlocati/php-extension-installer:latest,source=/usr/bin/install-php-extensions,target=/usr/local/bin/install-php-extensions \
       install-php-extensions opcache zip xsl dom exif intl pcntl bcmath sockets
@@ -16,7 +16,7 @@ RUN  --mount=type=bind,from=mlocati/php-extension-installer:latest,source=/usr/b
 COPY --link --from=spiralscout_roadrunner /usr/bin/rr /usr/bin/rr
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
-ENV PATH="${PATH}:/root/.composer/vendor/bin:/app/bin"
+ENV PATH="${PATH}:/root/.composer/vendor/bin:/srv/bin"
 COPY --from=composer_upstream --link /composer /usr/bin/composer
 
 EXPOSE 8080/tcp
